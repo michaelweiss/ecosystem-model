@@ -26,7 +26,7 @@ git log --date=raw --numstat >changes.log
 
 Now run ```contribs.py``` to extract developer collaborations:
 ```
-python3 contribs.py che-server/changes.log
+python3 contribs.py che-server/changes.log >che-server.csv
 ```
 
 ## Understand networks
