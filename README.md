@@ -40,9 +40,24 @@ Configure the ecosystem visualization by changing the ```ecosystem.py``` file. T
 * File with the developer collaborations
 * Color scheme to highlight specific nodes in the network
 * Add code to compute network metrics
-* Add code for community detection to show related nodes
+* Advanced: Add code for community detection to group the nodes
 
 Run the ecosystem visualizer:
 ```
 streamlit run ecosystem.py
+```
+
+## Dependencies
+
+Required libraries:
+
+* networkx
+* pandas
+* numpy
+* pyvis
+* streamlit
+
+You can install each of these by using a version of this command:
+```
+python3 -m pip install networkx
 ```
