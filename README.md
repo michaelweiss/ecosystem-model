@@ -31,4 +31,18 @@ python3 contribs.py che-server/changes.log >che-server.csv
 
 ## Understand networks
 
+Computing network metrics can help you identify key players and their roles.
+
 ## Present networks
+
+Configure the ecosystem visualization by changing the ```ecosystem.py``` file. Things that you may consider changing:
+
+* File with the developer collaborations
+* Color scheme to highlight specific nodes in the network
+* Add code to compute network metrics
+* Add code for community detection to show related nodes
+
+Run the ecosystem visualizer:
+```
+streamlit run ecosystem.py
+```

@@ -76,6 +76,7 @@ contribs = contributions(commits)
 #     print(developer, len(contribs[developer].keys()))
 
 G = create_network(commits, min_changes=1)
+print("from,to,weight")
 for u, v, d in G.edges(data=True):
     print("{},{},{}".format(u, v, d['weight']))
 
