@@ -6,6 +6,8 @@ import math
 import networkx as nx
 from pyvis.network import Network
 
+from networkx.algorithms.community import greedy_modularity_communities
+
 @st.cache()
 def load_edges():
 	edges = pd.read_csv("che-server.csv")

@@ -6,11 +6,9 @@ import networkx as nx
 # each commit is a dict with the keys: "hash", "developer", "changes"
 def read_commits(filename):
     commits = []
-    commit_hash = ""
-    author = ""
     # precompile regexes
-    developer_pattern = re.compile(r"^Author: (.+?) <(.+)>")   # first group is developer, second is email
-    change_pattern = re.compile(r"^(\d+)\s+(\d+)\s+(.+)")   # third group is file name
+    developer_pattern = re.compile(r"^Author: (.+?) <(.+)>")    # first group is developer, second is email
+    change_pattern = re.compile(r"^(\d+)\s+(\d+)\s+(.+)")       # third group is file name
     
     with open(filename, 'r') as f:
         for line in f:
@@ -57,6 +55,8 @@ def create_network(commits, min_changes=1):
         for b in developers:
             if a < b:
                 shared_files = set(contribs[a].keys()) & set(contribs[b].keys())
+                # compute weight as shared number of file contributions
+                # an alternative would be to compute the cosine similarity of the two vectors
                 weight = sum(min(contribs[a][f], contribs[b][f]) for f in shared_files)
                 if weight >= min_changes:
                     G.add_edge(a, b, weight=weight)
@@ -75,8 +75,8 @@ contribs = contributions(commits)
 # for developer in contribs:
 #     print(developer, len(contribs[developer].keys()))
 
+# create network and save to csv format
 G = create_network(commits, min_changes=1)
 print("from,to,weight")
 for u, v, d in G.edges(data=True):
     print("{},{},{}".format(u, v, d['weight']))
-
