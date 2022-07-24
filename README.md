@@ -39,8 +39,10 @@ Configure the ecosystem visualization by changing the ```ecosystem.py``` file. T
 
 * File with the developer collaborations
 * Color scheme to highlight specific nodes in the network
+* Add code to compute summary statistics of the ecosystem
 * Add code to compute network metrics
 * Advanced: Add code for community detection to group the nodes
+* Advanced: Use cosine similarity instead of commit sum similarity for inferring relationships
 
 Run the ecosystem visualizer:
 ```
