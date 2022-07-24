@@ -47,7 +47,7 @@ def create_network(commits, min_changes=1):
     G = nx.Graph()
 
     # add nodes for developers
-    developers = contribs.keys().sort()     
+    developers = sorted(contribs.keys())   
     G.add_nodes_from(developers)
 
     # add edges for each pair of developers who have contributed to the same file
