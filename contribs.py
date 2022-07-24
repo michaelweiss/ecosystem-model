@@ -47,10 +47,11 @@ def create_network(commits, min_changes=1):
     G = nx.Graph()
 
     # add nodes for developers
-    developers = contribs.keys()
-    G.add_nodes_from(contribs.keys())
+    developers = contribs.keys().sort()     
+    G.add_nodes_from(developers)
 
     # add edges for each pair of developers who have contributed to the same file
+    # expects developers to be in sorted order, so we just need to enumerate all i, j (i < j) pairs
     for a in developers:
         for b in developers:
             if a < b:
