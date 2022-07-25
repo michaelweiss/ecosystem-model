@@ -37,7 +37,6 @@ Computing network metrics can help you identify key players and their roles.
 
 Configure the ecosystem visualization by changing the ```ecosystem.py``` file. Things that you may consider changing:
 
-* File with the developer collaborations
 * Color scheme to highlight specific nodes in the network
 * Add code to compute summary statistics of the ecosystem
 * Add code to compute network metrics
