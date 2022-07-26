@@ -67,4 +67,22 @@ python3 -m pip install networkx
 
 ## Getting started
 
-TBD
+Git is probably the most popular version management tool used by open source projects. If you don't have Git on your machine, you need to install it first:
+
+[Installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+Next you need to ``clone'' this Git repository (on the command line):
+```
+git clone https://github.com/michaelweiss/ecosystem-model.git
+```
+
+Now, change into the directory ```ecosystem-model```:
+```
+cd ecosystem-model
+```
+
+If don't have Python installed, you also need to install it. On Windows, the preferred way seems to be to install Python from the Microsoft store.
+
+To run Python from the command line type either ```python``` or ```python3```.
+
+Congratulations! You are ready to start with the step [Capture data](#capture-data).
