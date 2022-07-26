@@ -1,6 +1,8 @@
 # ecosystem-model
 Code to model software ecosystems as networks
 
+If you are new to git, please read the [Getting started](#getting-started) section first.
+
 ## Capture data
 Suppose you want to map the Eclipse Che Server ecosystem:
 ```
@@ -62,3 +64,7 @@ You can install each of these by using a version of this command:
 ```
 python3 -m pip install networkx
 ```
+
+## Getting started
+
+TBD
