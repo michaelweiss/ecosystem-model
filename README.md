@@ -69,7 +69,7 @@ python3 -m pip install networkx
 
 Git is probably the most popular version management tool used by open source projects. If you don't have Git on your machine, you need to [install it first](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
-Next you need to ``clone'' this Git repository (on the command line):
+Next you need to "clone" (that is, copy) this Git repository (on the command line):
 ```
 git clone https://github.com/michaelweiss/ecosystem-model.git
 ```
