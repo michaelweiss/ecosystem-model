@@ -56,9 +56,26 @@ def show_ecosystem_network(G):
 		components.html(open("ecosystem_network.html", 'r', encoding='utf-8').read(), height=625)
 
 def show_ecosystem_metrics(G):
-    # TODO: Calculate and display networks metrics that allow you to understand the network,
+    # Calculate and display networks metrics that allow you to understand the network,
     # such as the key actors, the key actors' roles, etc.
-    pass
+
+    # Identify the top 15 contributors based on their degree
+    dc = nx.degree_centrality(G)
+    top_15_contributors = sorted(dc.items(), key=lambda x: x[1], reverse=True)[:15]
+
+    # Create a dataframe with the top 15 contributors   
+    top_15_contributors_df = pd.DataFrame(top_15_contributors, columns=["Contributor", "Degree"])
+
+    # Here is how you compute a new centrality metric and add it to the dataframe
+    # Compute the betweenness centrality for the top 15 contributors
+    bc = nx.betweenness_centrality(G)
+    top_15_contributors_df["Betweenness"] = [bc[contributor] for contributor in top_15_contributors_df["Contributor"]]
+    
+    # TODO: Add other metrics like closeness centrality, etc. See here for a list of the available metrics:
+    # https://networkx.org/documentation/stable/reference/algorithms/centrality.html
+
+    # Create table with centrality metrics for the top 15 contributors
+    st.dataframe(top_15_contributors_df)
 
 # app
 
@@ -76,10 +93,23 @@ st.markdown("""
     Visualize the ecosystem network. Experiment with the link filter to see how it affects the network.
 """)
 
+st.sidebar.markdown("""
+    Use slider to remove links of low weight.
+    """)
 min_link_weight = st.sidebar.slider("Minimum link weight", min_value=0, max_value=10000, value=1000, step=50)
 G = create_ecosystem_network(edges, link_filter=min_link_weight)
-st.sidebar.write("{} nodes, {} edges".format(len(G.nodes), len(G.edges)))
-show_ecosystem_network(G)
+st.sidebar.write("The network has {} nodes, {} edges.".format(len(G.nodes), len(G.edges)))
+
+st.sidebar.markdown("""
+    Don't display the network if it is too large.
+    """)
+max_edges = st.sidebar.number_input("Cut-off for the number of edges to show", value=100, step=10)
+if len(G.edges) <= max_edges:
+    show_ecosystem_network(G)
+else:
+    st.markdown("""
+        There are too many edges to display. Choose a higher minimum link weight.
+    """)
 
 st.header("Metrics")
 st.markdown("""
