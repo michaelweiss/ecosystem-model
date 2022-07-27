@@ -7,26 +7,37 @@ import networkx as nx
 def read_commits(filename):
     commits = []
     # precompile regexes
-    developer_pattern = re.compile(r"^Author: (.+?) <(.+)>")    # first group is developer, second is email
+    developer_pattern = re.compile(r"^Author: (.+?) <(.*?)>")   # first group is developer, second is email
     change_pattern = re.compile(r"^(\d+)\s+(\d+)\s+(.+)")       # third group is file name
     
-    with open(filename, 'r') as f:
-        for line in f:
+    line_no = 0
+    with open(filename, 'r', encoding='utf8') as f:
+         for line in f:
+            line_no += 1
             # line starts with 'commit' read the commit hash
             if line.startswith('commit'):
                 commit_hash = line.split()[1]
                 commits.append({})
                 commits[-1]['hash'] = commit_hash
             elif line.startswith('Author:'):
-                developer = re.match(developer_pattern, line).group(2)
-                commits[-1]['developer'] = developer
+                try:
+                    developer = re.match(developer_pattern, line).group(2)
+                    commits[-1]['developer'] = developer if developer != '' else 'NA'
+                except:
+                    perror(line_no, line, "Does not match developer pattern")
             elif re.match(r"^(\d+)", line):
-                change = re.match(change_pattern, line).group(3)
-                if 'changes' not in commits [-1]:
-                    commits[-1]['changes'] = []
-                commits[-1]['changes'].append(change)
+                try:
+                    change = re.match(change_pattern, line).group(3)
+                    if 'changes' not in commits [-1]:
+                        commits[-1]['changes'] = []
+                    commits[-1]['changes'].append(change)
+                except:
+                    perror(line_no, line, "Does not match change pattern")
 
     return commits
+
+def perror(line_no, line, error):
+    print("Error in line {}: {}\n{}".format(line_no, error, line), file=sys.stderr)
 
 # extract the list of files each developer has changed
 def contributions(commits):
