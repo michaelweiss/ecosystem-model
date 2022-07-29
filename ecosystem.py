@@ -26,6 +26,9 @@ def create_ecosystem_network(edges, link_filter=1000):
         if weight >= link_filter:
             G.add_edge(u, v, weight=weight)
 
+    if len(G.edges) == 0:
+        return G
+
     # Remove isolates (nodes without any neighbors)
     isolates = set(nx.isolates(G))
     G.remove_nodes_from(isolates)
@@ -104,7 +107,9 @@ st.sidebar.markdown("""
     Don't display the network if it is too large.
     """)
 max_edges = st.sidebar.number_input("Cut-off for the number of edges to show", value=100, step=10)
-if len(G.edges) <= max_edges:
+if len(G.edges) == 0:
+    st.markdown("The network doesn't have any edges. Choose a lower minimum link weight.")
+elif len(G.edges) <= max_edges:
     show_ecosystem_network(G)
 else:
     st.markdown("""
