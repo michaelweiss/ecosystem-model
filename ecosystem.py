@@ -10,7 +10,7 @@ from networkx.algorithms.community import greedy_modularity_communities
 
 @st.cache()
 def load_edges():
-	edges = pd.read_csv("che-server.csv")
+	edges = pd.read_csv("che-server.csv", encoding='ISO-8859-1')
 	return edges
 
 def create_ecosystem_network(edges, link_filter=1000):
